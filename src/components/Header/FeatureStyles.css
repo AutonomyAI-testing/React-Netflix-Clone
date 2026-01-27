@@ -40,7 +40,7 @@
   font-size: 26px;
   font-weight: normal;
   margin: 16px auto;
-  border: solid red;
+  border: solid #0066ff;
   width: fit-content;
   padding: 10px;
 }
@@ -78,6 +78,6 @@
 }
 
 .play-button:hover {
-  background: #ff1e1e;
+  background: #0066ff;
   color: white;
 }

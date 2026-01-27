@@ -27,7 +27,7 @@
 .optform-button {
   width: fit-content;
   height: 60px;
-  background: #e50914;
+  background: #0066ff;
   color: #fff;
   text-transform: uppercase;
   padding: 0 32px;
@@ -58,7 +58,7 @@
 }
 
 .optform-button-image img:hover {
-  background: #f40612;
+  background: #0066ff;
 }
 
 .optform-text {

@@ -14,6 +14,9 @@ import SignFormText from "../components/SignForm/SignFormText";
 import SignFormLink from "../components/SignForm/SignFormLink";
 import SignFormCaptcha from "../components/SignForm/SignFormCaptcha";
 import SignFormError from "../components/SignForm/SignFormError";
+import SignFormSocialButtons from "../components/SignForm/SignFormSocialButtons";
+import SignFormSocialButton from "../components/SignForm/SignFormSocialButton";
+import SignFormDivider from "../components/SignForm/SignFormDivider";
 import Warning from "../components/Header/Warning";
 
 function SignupPage() {
@@ -48,6 +51,23 @@ function SignupPage() {
       .catch((error) => setError(error.message));
   }
 
+  function handleSocialSignUp(provider) {
+    let authProvider;
+    if (provider === "Google") {
+      authProvider = new firebase.auth.GoogleAuthProvider();
+    } else if (provider === "Facebook") {
+      authProvider = new firebase.auth.FacebookAuthProvider();
+    }
+
+    firebase
+      .auth()
+      .signInWithPopup(authProvider)
+      .then(() => {
+        history.push("/browse");
+      })
+      .catch((error) => setError(error.message));
+  }
+
   return (
     <>
       <HeaderWrapper className="header-wrapper-home">
@@ -79,6 +99,22 @@ function SignupPage() {
               onChange={({ target }) => setPassword(target.value)}
             />
             <SignFormButton disabled={IsInvalid}>Sign Up</SignFormButton>
+
+            <SignFormDivider>OR</SignFormDivider>
+
+            <SignFormSocialButtons>
+              <SignFormSocialButton
+                provider="Google"
+                icon="🌐"
+                onClick={() => handleSocialSignUp("Google")}
+              />
+              <SignFormSocialButton
+                provider="Facebook"
+                icon="📘"
+                onClick={() => handleSocialSignUp("Facebook")}
+              />
+            </SignFormSocialButtons>
+
             <SignFormText>
               Already a user?
               <SignFormLink href="/signin">Sign in now.</SignFormLink>

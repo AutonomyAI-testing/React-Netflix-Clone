@@ -1,0 +1,403 @@
+/* ############### Kanban Board Section ############### */
+
+.kanban-page-wrapper {
+  min-height: 100vh;
+  background-color: #000;
+  padding: 40px 20px;
+}
+
+.kanban-page-title {
+  font-size: 48px;
+  color: #fff;
+  text-align: center;
+  margin: 0 0 40px 0;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .kanban-page-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+}
+
+.kanban-board-wrapper {
+  display: flex;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .kanban-board-wrapper {
+    flex-direction: row;
+    padding: 0 10px;
+    gap: 15px;
+  }
+}
+
+.kanban-column-wrapper {
+  flex: 1;
+  min-width: 320px;
+  background-color: #181818;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+}
+
+@media (max-width: 768px) {
+  .kanban-column-wrapper {
+    min-width: 280px;
+  }
+}
+
+.kanban-column-header {
+  color: #e5e5e5;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #333;
+}
+
+.kanban-cards-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 5px;
+}
+
+.kanban-cards-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.kanban-cards-container::-webkit-scrollbar-track {
+  background: #000;
+  border-radius: 4px;
+}
+
+.kanban-cards-container::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.kanban-cards-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.kanban-card-wrapper {
+  background-color: #303030;
+  border-radius: 6px;
+  padding: 16px;
+  cursor: grab;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.kanban-card-wrapper:hover {
+  border-color: #e50914;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(229, 9, 20, 0.3);
+}
+
+.kanban-card-wrapper:active {
+  cursor: grabbing;
+  opacity: 0.6;
+}
+
+.kanban-card-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  word-wrap: break-word;
+}
+
+.kanban-card-description {
+  color: #e5e5e5;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+  word-wrap: break-word;
+}
+
+.kanban-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #444;
+}
+
+.kanban-card-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-edit-btn {
+  background-color: #444;
+  color: #fff;
+}
+
+.kanban-edit-btn:hover {
+  background-color: #555;
+}
+
+.kanban-delete-btn {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.kanban-delete-btn:hover {
+  background-color: #f40612;
+}
+
+.kanban-add-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-add-button:hover {
+  background-color: #f40612;
+  transform: translateY(-2px);
+}
+
+.kanban-empty-state {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* ############### Card Form Section ############### */
+
+.kanban-card-form {
+  background-color: #303030;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.kanban-form-group {
+  margin-bottom: 16px;
+}
+
+.kanban-form-label {
+  display: block;
+  color: #e5e5e5;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.kanban-form-input,
+.kanban-form-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #181818;
+  border: 2px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.kanban-form-input:focus,
+.kanban-form-textarea:focus {
+  outline: none;
+  border-color: #e50914;
+}
+
+.kanban-form-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.kanban-form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.kanban-form-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-save-btn {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.kanban-save-btn:hover {
+  background-color: #f40612;
+}
+
+.kanban-cancel-btn {
+  background-color: #444;
+  color: #fff;
+}
+
+.kanban-cancel-btn:hover {
+  background-color: #555;
+}
+
+/* ############### Delete Modal Section ############### */
+
+.kanban-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.kanban-modal-content {
+  background-color: #181818;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.kanban-modal-title {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.kanban-modal-message {
+  color: #e5e5e5;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.kanban-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.kanban-modal-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-confirm-btn {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.kanban-confirm-btn:hover {
+  background-color: #f40612;
+}
+
+.kanban-modal-cancel-btn {
+  background-color: #444;
+  color: #fff;
+}
+
+.kanban-modal-cancel-btn:hover {
+  background-color: #555;
+}
+
+/* ############### Loading & Error States ############### */
+
+.kanban-loading {
+  color: #e5e5e5;
+  font-size: 20px;
+  text-align: center;
+  padding: 40px;
+}
+
+.kanban-error {
+  color: #e50914;
+  font-size: 18px;
+  text-align: center;
+  padding: 40px;
+  background-color: #181818;
+  border-radius: 8px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* ############### Responsive Adjustments ############### */
+
+@media (max-width: 1024px) {
+  .kanban-board-wrapper {
+    gap: 15px;
+  }
+
+  .kanban-column-wrapper {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kanban-page-wrapper {
+    padding: 20px 10px;
+  }
+
+  .kanban-card-title {
+    font-size: 16px;
+  }
+
+  .kanban-card-description {
+    font-size: 13px;
+  }
+
+  .kanban-modal-content {
+    padding: 20px;
+  }
+
+  .kanban-modal-title {
+    font-size: 20px;
+  }
+
+  .kanban-modal-message {
+    font-size: 14px;
+  }
+}

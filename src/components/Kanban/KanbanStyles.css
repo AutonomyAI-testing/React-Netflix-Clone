@@ -401,3 +401,346 @@
     font-size: 14px;
   }
 }
+
+/* ############### Page Header Section ############### */
+
+.kanban-page-header {
+  max-width: 1400px;
+  margin: 0 auto 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.kanban-page-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.kanban-view-toggle {
+  display: flex;
+  gap: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid #444;
+}
+
+.kanban-view-btn {
+  padding: 10px 20px;
+  background-color: #181818;
+  color: #e5e5e5;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-view-btn:first-child {
+  border-right: 1px solid #444;
+}
+
+.kanban-view-btn:hover {
+  background-color: #303030;
+}
+
+.kanban-view-btn-active {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.kanban-view-btn-active:hover {
+  background-color: #f40612;
+}
+
+.kanban-page-add-btn {
+  padding: 10px 20px;
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kanban-page-add-btn:hover {
+  background-color: #f40612;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .kanban-page-header {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 30px;
+  }
+
+  .kanban-page-title {
+    text-align: center;
+  }
+
+  .kanban-page-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .kanban-view-toggle {
+    width: 100%;
+  }
+
+  .kanban-view-btn {
+    flex: 1;
+  }
+
+  .kanban-page-add-btn {
+    width: 100%;
+  }
+}
+
+/* ############### List View Section ############### */
+
+.kanban-list-view-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: #181818;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.kanban-list-header {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 1.5fr;
+  gap: 20px;
+  padding: 20px;
+  background-color: #000;
+  border-bottom: 2px solid #e50914;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.kanban-list-header-cell {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.kanban-list-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.kanban-list-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.kanban-list-body::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.kanban-list-body::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 5px;
+}
+
+.kanban-list-body::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+.kanban-list-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 1.5fr;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.2s ease;
+}
+
+.kanban-list-row:hover {
+  background-color: #202020;
+}
+
+.kanban-list-cell {
+  color: #e5e5e5;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.kanban-list-cell-title {
+  font-weight: 600;
+  color: #fff;
+  font-size: 16px;
+}
+
+.kanban-list-cell-description {
+  color: #999;
+}
+
+.kanban-list-cell-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.kanban-status-select {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #303030;
+  color: #e5e5e5;
+  border: 2px solid #444;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.kanban-status-select:hover {
+  border-color: #666;
+}
+
+.kanban-status-select:focus {
+  outline: none;
+  border-color: #e50914;
+}
+
+.kanban-list-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.kanban-list-edit-btn {
+  background-color: #444;
+  color: #fff;
+}
+
+.kanban-list-edit-btn:hover {
+  background-color: #555;
+}
+
+.kanban-list-delete-btn {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.kanban-list-delete-btn:hover {
+  background-color: #f40612;
+}
+
+.kanban-list-empty-state {
+  color: #999;
+  font-size: 16px;
+  text-align: center;
+  padding: 60px 20px;
+  font-style: italic;
+}
+
+.kanban-list-add-form {
+  max-width: 1400px;
+  margin: 0 auto 30px;
+  padding: 0 20px;
+}
+
+.kanban-list-form-title {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.kanban-list-edit-form {
+  padding: 20px;
+  background-color: #000;
+  border-bottom: 1px solid #333;
+}
+
+.kanban-list-edit-form .kanban-card-form {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .kanban-list-header,
+  .kanban-list-row {
+    grid-template-columns: 1.5fr 2fr 1.2fr 1.3fr;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kanban-list-view-wrapper {
+    padding: 0 10px;
+  }
+
+  .kanban-list-header {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 15px;
+  }
+
+  .kanban-list-header-cell {
+    display: none;
+  }
+
+  .kanban-list-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .kanban-list-cell {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .kanban-list-cell::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .kanban-list-cell-title::before {
+    content: "Title:";
+  }
+
+  .kanban-list-cell-description::before {
+    content: "Description:";
+  }
+
+  .kanban-list-cell-status::before {
+    content: "Status:";
+  }
+
+  .kanban-list-cell-actions::before {
+    content: "Actions:";
+  }
+
+  .kanban-list-cell-actions {
+    width: 100%;
+  }
+
+  .kanban-list-btn {
+    flex: 1;
+  }
+
+  .kanban-status-select {
+    width: 100%;
+  }
+}

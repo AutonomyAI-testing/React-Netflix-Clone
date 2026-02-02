@@ -36,17 +36,19 @@ function KanbanCardForm({
     <form className="kanban-card-form" onSubmit={handleSubmit} {...restProps}>
       <div className="kanban-form-group">
         <label htmlFor="card-title" className="kanban-form-label">
-          Title *
-          <input
-            id="card-title"
-            type="text"
-            className="kanban-form-input"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter card title"
-            required
-          />
+          Title
+          {' '}
+          *
         </label>
+        <input
+          id="card-title"
+          type="text"
+          className="kanban-form-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter card title"
+          required
+        />
       </div>
       <div className="kanban-form-group">
         <label htmlFor="card-description" className="kanban-form-label">
@@ -64,7 +66,7 @@ function KanbanCardForm({
       <div className="kanban-form-actions">
         <button type="submit" className="kanban-form-btn kanban-save-btn">
           {card ? "Update" : "Add"}
-          {" "}
+          {' '}
           Card
         </button>
         <button

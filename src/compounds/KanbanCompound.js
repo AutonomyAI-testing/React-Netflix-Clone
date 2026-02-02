@@ -7,6 +7,9 @@ import KanbanCardsContainer from "../components/Kanban/KanbanCardsContainer";
 import KanbanCard from "../components/Kanban/KanbanCard";
 import KanbanCardForm from "../components/Kanban/KanbanCardForm";
 import KanbanDeleteModal from "../components/Kanban/KanbanDeleteModal";
+import KanbanListView from "../components/Kanban/KanbanListView";
+import KanbanListHeader from "../components/Kanban/KanbanListHeader";
+import KanbanListRow from "../components/Kanban/KanbanListRow";
 
 const COLUMNS = {
   todo: { id: "todo", title: "To Do" },
@@ -14,7 +17,11 @@ const COLUMNS = {
   done: { id: "done", title: "Done" },
 };
 
-function KanbanCompound() {
+function KanbanCompound({
+  viewMode = "board",
+  showAddForm = false,
+  onFormClose,
+}) {
   const {
     cards,
     loading,
@@ -27,13 +34,28 @@ function KanbanCompound() {
 
   const [activeForm, setActiveForm] = useState(null); // { columnId: 'todo' } or { card: {...} }
   const [deleteModal, setDeleteModal] = useState(null);
+  const [editingCardId, setEditingCardId] = useState(null);
+
+  // Handle external add form trigger
+  React.useEffect(() => {
+    if (showAddForm && viewMode === "list" && !activeForm) {
+      setActiveForm({ columnId: "todo" });
+      if (onFormClose) {
+        onFormClose();
+      }
+    }
+  }, [showAddForm, viewMode, activeForm, onFormClose]);
 
   const handleAddCard = (columnId) => {
     setActiveForm({ columnId });
   };
 
   const handleEditCard = (card) => {
-    setActiveForm({ card });
+    if (viewMode === "list") {
+      setEditingCardId(card.id);
+    } else {
+      setActiveForm({ card });
+    }
   };
 
   const handleDeleteCard = (card) => {
@@ -41,12 +63,19 @@ function KanbanCompound() {
   };
 
   const handleSaveCard = async (cardData) => {
-    if (activeForm.card) {
+    if (activeForm && activeForm.card) {
       // Update existing card
       await updateCard(activeForm.card.id, {
         title: cardData.title,
         description: cardData.description,
       });
+    } else if (editingCardId) {
+      // Update card from list view
+      await updateCard(editingCardId, {
+        title: cardData.title,
+        description: cardData.description,
+      });
+      setEditingCardId(null);
     } else {
       // Add new card
       await addCard(cardData);
@@ -68,6 +97,15 @@ function KanbanCompound() {
     }
   };
 
+  const handleStatusChange = (cardId, newColumn) => {
+    moveCard(cardId, newColumn);
+  };
+
+  const handleCancelEdit = () => {
+    setActiveForm(null);
+    setEditingCardId(null);
+  };
+
   const getCardsByColumn = (columnId) => cards.filter((card) => card.column === columnId);
 
   if (loading) {
@@ -78,12 +116,72 @@ function KanbanCompound() {
     return (
       <div className="kanban-error">
         Error loading board:
-        {" "}
+        {' '}
         {error}
       </div>
     );
   }
 
+  // Render list view
+  if (viewMode === "list") {
+    const editingCard = cards.find((c) => c.id === editingCardId);
+
+    return (
+      <>
+        {activeForm && activeForm.columnId && (
+          <div className="kanban-list-add-form">
+            <h3 className="kanban-list-form-title">Add New Card</h3>
+            <KanbanCardForm
+              columnId={activeForm.columnId}
+              onSave={handleSaveCard}
+              onCancel={handleCancelEdit}
+            />
+          </div>
+        )}
+
+        <KanbanListView>
+          <KanbanListHeader />
+          <div className="kanban-list-body">
+            {cards.length === 0 && !activeForm ? (
+              <div className="kanban-list-empty-state">
+                No cards yet. Click &quot;Add Card&quot; to get started!
+              </div>
+            ) : (
+              cards.map((card) => (
+                editingCardId === card.id ? (
+                  <div key={card.id} className="kanban-list-edit-form">
+                    <KanbanCardForm
+                      card={editingCard}
+                      onSave={handleSaveCard}
+                      onCancel={handleCancelEdit}
+                    />
+                  </div>
+                ) : (
+                  <KanbanListRow
+                    key={card.id}
+                    card={card}
+                    onEdit={handleEditCard}
+                    onDelete={handleDeleteCard}
+                    onStatusChange={handleStatusChange}
+                  />
+                )
+              ))
+            )}
+          </div>
+        </KanbanListView>
+
+        {deleteModal && (
+          <KanbanDeleteModal
+            card={deleteModal}
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setDeleteModal(null)}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Render board view
   return (
     <>
       <KanbanBoard>
@@ -106,7 +204,7 @@ function KanbanCompound() {
                   <KanbanCardForm
                     columnId={column.id}
                     onSave={handleSaveCard}
-                    onCancel={() => setActiveForm(null)}
+                    onCancel={handleCancelEdit}
                   />
                 )}
 
@@ -122,7 +220,7 @@ function KanbanCompound() {
                       <KanbanCardForm
                         card={card}
                         onSave={handleSaveCard}
-                        onCancel={() => setActiveForm(null)}
+                        onCancel={handleCancelEdit}
                       />
                     ) : (
                       <KanbanCard

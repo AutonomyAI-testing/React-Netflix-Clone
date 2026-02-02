@@ -22,7 +22,9 @@ function KanbanDeleteModal({
       <div className="kanban-modal-content">
         <h3 className="kanban-modal-title">Delete Card?</h3>
         <p className="kanban-modal-message">
-          Are you sure you want to delete &quot;
+          Are you sure you want to delete
+          {' '}
+          &quot;
           {card.title}
           &quot;? This action cannot be undone.
         </p>
